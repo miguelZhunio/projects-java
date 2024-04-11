@@ -1,20 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package projects.java.thread;
 
-/**
- *
- * @author zhuniox
- */
-public class ThreadIndex extends javax.swing.JFrame {
+import java.awt.event.KeyEvent;
 
-    /**
-     * Creates new form ThreadMain
-     */
-    public ThreadIndex() {
+public class ThreadIndex extends javax.swing.JFrame {
+    
+    private final int FRAME_SIZE = 700;
+    SnakePanel snake;
+
+    public ThreadIndex() {   
         initComponents();
+        init(); 
+        setLocationRelativeTo(null);
+        
+    }
+    
+    public void init() {
+        snake = new SnakePanel(FRAME_SIZE, 20);
+        this.add(snake);
+        snake.setBounds(10, 10, FRAME_SIZE, FRAME_SIZE);
+        snake.setOpaque(false);
+        BackgroundPanel background = new BackgroundPanel(FRAME_SIZE, 20);
+        this.add(background);
+        background.setBounds(10, 10, FRAME_SIZE, FRAME_SIZE);
+        
+        this.requestFocus(true);
     }
 
     /**
@@ -27,20 +36,44 @@ public class ThreadIndex extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                snake.changeAddress("left");
+                break;
+            case KeyEvent.VK_RIGHT:
+                snake.changeAddress("right");
+                break;
+            case KeyEvent.VK_UP:
+                snake.changeAddress("top");
+                break;
+            case KeyEvent.VK_DOWN:
+                snake.changeAddress("bottom");
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
